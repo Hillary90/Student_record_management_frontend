@@ -1,71 +1,97 @@
-// src/pages/LoginPage.jsx
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import API from "../services/api";
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../contexts/ AuthContext'
+import Input from '../components/common/Input'
+import Button from '../components/common/Button'
+import { BookOpen, LogIn } from 'lucide-react'
 
-export default function LoginPage() {
-  const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const Login = () => {
+  const { login } = useAuth()
+  const [formData, setFormData] = useState({
+    username:  '',
+    password: '',
+  })
+  const [loading, setLoading] = useState(false)
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
-    try {
-      const response = await API.post("/auth/login", { email, password });
-      login(response.data.access_token);
-    } catch (err) {
-      setError(err.response?.data?.error || "Login failed. Try again.");
-    }
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    await login(formData)
+    setLoading(false)
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 px-4">
-      <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md transform transition-all hover:scale-105 duration-300">
-        <h1 className="text-4xl font-bold text-center mb-2 text-gray-800">
-          Student Records
-        </h1>
-        <p className="text-center text-indigo-600 text-xl mb-8">Sign In</p>
+    <div className="min-h-screen bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center p-4">
+      <div className="max-w-md w-full">
+        {/* Logo and Title */}
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <div className="bg-white p-3 rounded-full">
+              <BookOpen className="w-12 h-12 text-primary-600" />
+            </div>
+          </div>
+          <h1 className="text-3xl font-bold text-white mb-2">Student Record Management</h1>
+          <p className="text-primary-100">Sign in to your account</p>
+        </div>
 
-        {error && (
-          <p className="text-red-600 bg-red-50 p-3 rounded-lg mb-6 text-center font-medium">
-            {error}
+        {/* Login Form */}
+        <div className="bg-white rounded-lg shadow-xl p-8">
+          <form onSubmit={handleSubmit}>
+            <Input
+              label="Username"
+              type="text"
+              name="username"
+              value={formData. username}
+              onChange={handleChange}
+              placeholder="Enter your username"
+              required
+            />
+
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              value={formData. password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
+
+            <Button
+              type="submit"
+              variant="primary"
+              className="w-full"
+              disabled={loading}
+              icon={LogIn}
+            >
+              {loading ? 'Signing in...' : 'Sign In'}
+            </Button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">
+                Register here
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* Demo Credentials */}
+        <div className="mt-6 bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
+          <p className="text-sm text-white text-center mb-2">Demo Credentials: </p>
+          <p className="text-xs text-primary-100 text-center">
+            Username: <span className="font-mono">admin</span> | Password: <span className="font-mono">admin123</span>
           </p>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-6">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-5 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full px-5 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition duration-200 transform hover:scale-105 shadow-md"
-          >
-            Login
-          </button>
-        </form>
-
-        <p className="text-center text-gray-500 mt-6 text-sm">
-          © {new Date().getFullYear()} Student Record Management
-        </p>
+        </div>
       </div>
     </div>
-  );
+  )
 }
+
+export default Login
