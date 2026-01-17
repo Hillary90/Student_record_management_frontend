@@ -24,7 +24,7 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-6 py-12">
         <div className="bg-white rounded-2xl shadow-xl p-10">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            Welcome back! 👋
+            Welcome back! 
           </h2>
           <p className="text-gray-600 mb-8">
             Manage student records, view reports, and more.
