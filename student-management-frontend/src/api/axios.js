@@ -7,7 +7,7 @@ const instance = axios.create({
   },
 })
 
-// Add auth token to requests
+// Request interceptor - Add auth token to requests
 instance.interceptors.request. use(
   (config) => {
     const token = localStorage. getItem('token')
@@ -20,7 +20,8 @@ instance.interceptors.request. use(
     return Promise.reject(error)
   }
 )
-// Handle unauthorized responses
+
+// Response interceptor - Handle errors globally
 instance.interceptors.response. use(
   (response) => response,
   (error) => {
