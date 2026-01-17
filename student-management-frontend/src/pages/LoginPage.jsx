@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../contexts/ AuthContext'
+import { useAuth } from '../context/AuthContext'
 import Input from '../components/common/Input'
 import Button from '../components/common/Button'
 import { BookOpen, LogIn } from 'lucide-react'
