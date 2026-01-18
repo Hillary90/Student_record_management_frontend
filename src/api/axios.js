@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env. VITE_API_BASE_URL || 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-// Request interceptor - Add auth token to requests
+// Add auth token to requests
 instance.interceptors.request. use(
   (config) => {
     const token = localStorage. getItem('token')
@@ -21,15 +21,18 @@ instance.interceptors.request. use(
   }
 )
 
-// Response interceptor - Handle errors globally
-instance.interceptors.response. use(
+// Handle errors globally
+instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error. response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      window.location.href = '/login'
+      
+      // Use BASE_URL for proper routing in both dev and production
+      const basePath = import. meta.env.BASE_URL || '/'
+      window.location. href = `${basePath}login`
     }
     return Promise.reject(error)
   }
