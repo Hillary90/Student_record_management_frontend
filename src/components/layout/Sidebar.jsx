@@ -4,8 +4,8 @@ import { LayoutDashboard, Users, GraduationCap, BookOpen } from 'lucide-react'
 const Sidebar = () => {
   const navItems = [
     { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { to:  '/students', icon: Users, label: 'Students' },
-    { to: '/grades', icon:  GraduationCap, label: 'Grades' },
+    { to: '/students', icon: Users, label: 'Students' },
+    { to: '/grades', icon: GraduationCap, label: 'Grades' },
   ]
 
   return (

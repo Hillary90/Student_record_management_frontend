@@ -18,13 +18,13 @@ const GradeForm = ({ grade, students, onSubmit, onCancel, loading }) => {
   useEffect(() => {
     if (grade) {
       setFormData({
-        student_id: grade.student_id. toString(),
-        subject: grade. subject,
-        score: grade. score. toString(),
-        max_score:  grade.max_score.toString(),
+        student_id: grade.student_id.toString(),
+        subject: grade.subject,
+        score: grade.score.toString(),
+        max_score: grade.max_score.toString(),
         term: grade.term,
-        year: grade.year. toString(),
-        remarks: grade. remarks || '',
+        year: grade.year.toString(),
+        remarks: grade.remarks || '',
       })
     }
   }, [grade])
@@ -39,7 +39,7 @@ const GradeForm = ({ grade, students, onSubmit, onCancel, loading }) => {
   }
 
   const studentOptions = students.map((student) => ({
-    value: student.id. toString(),
+    value: student.id.toString(),
     label: `${student.full_name} (${student.admission_number})`,
   }))
 
@@ -68,7 +68,7 @@ const GradeForm = ({ grade, students, onSubmit, onCancel, loading }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 md: grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Select
           label="Student"
           name="student_id"
@@ -76,7 +76,7 @@ const GradeForm = ({ grade, students, onSubmit, onCancel, loading }) => {
           onChange={handleChange}
           options={studentOptions}
           required
-          disabled={!! grade}
+          disabled={!!grade}
         />
 
         <Select
@@ -148,7 +148,7 @@ const GradeForm = ({ grade, students, onSubmit, onCancel, loading }) => {
           Cancel
         </Button>
         <Button type="submit" variant="primary" disabled={loading} icon={Save}>
-          {loading ? 'Saving...' :  grade ? 'Update Grade' : 'Add Grade'}
+          {loading ? 'Saving...' : grade ? 'Update Grade' : 'Add Grade'}
         </Button>
       </div>
     </form>
