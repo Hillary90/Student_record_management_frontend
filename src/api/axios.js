@@ -22,17 +22,16 @@ instance.interceptors.request. use(
 )
 
 // Handle errors globally
-instance.interceptors.response.use(
+instance. interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error. response?.status === 401) {
+    if (error.response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('token')
-      localStorage.removeItem('user')
+      localStorage. removeItem('user')
       
-      // Use BASE_URL for proper routing in both dev and production
-      const basePath = /* @vite-ignore */ import.meta.env.BASE_URL || '/'
-      window.location. href = `${basePath}login`
+      // Redirect to login with HashRouter
+      window.location. hash = '#/login'
     }
     return Promise.reject(error)
   }
