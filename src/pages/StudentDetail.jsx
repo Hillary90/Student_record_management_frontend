@@ -33,7 +33,7 @@ const Students = () => {
   const fetchStudents = async () => {
     try {
       const data = await getAllStudents()
-      setStudents(data. students)
+      setStudents(data.students)
       setFilteredStudents(data.students)
     } catch (error) {
       toast.error('Failed to fetch students')
@@ -47,10 +47,10 @@ const Students = () => {
 
     // Search filter
     if (searchTerm) {
-      filtered = filtered. filter(
+      filtered = filtered.filter(
         (student) =>
           student.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          student.admission_number. toLowerCase().includes(searchTerm. toLowerCase())
+          student.admission_number.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -108,7 +108,7 @@ const Students = () => {
   }
 
   const classOptions = [
-    { value:  '', label: 'All Classes' },
+    { value: '', label: 'All Classes' },
     { value: 'Form 1', label: 'Form 1' },
     { value: 'Form 2', label: 'Form 2' },
     { value: 'Form 3', label: 'Form 3' },
@@ -134,7 +134,7 @@ const Students = () => {
 
       {/* Filters */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <div className="grid grid-cols-1 md: grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
             <SearchBar
               value={searchTerm}
@@ -170,7 +170,7 @@ const Students = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredStudents.map((student) => (
             <StudentCard
-              key={student. id}
+              key={student.id}
               student={student}
               onView={handleViewStudent}
               onEdit={handleEditStudent}
