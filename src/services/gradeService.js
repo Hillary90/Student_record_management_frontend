@@ -21,7 +21,7 @@ export const updateGrade = async (id, gradeData) => {
 }
 
 export const deleteGrade = async (id) => {
-  const response = await axios. delete(`/grades/${id}`)
+  const response = await axios.delete(`/grades/${id}`)
   return response.data
 }
 
