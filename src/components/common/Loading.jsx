@@ -1,4 +1,4 @@
-const Loading = ({ size = 'md', text = 'Loading.. .' }) => {
+const Loading = ({ size = 'md', text = 'Loading...' }) => {
   const sizes = {
     sm: 'h-6 w-6',
     md: 'h-12 w-12',
