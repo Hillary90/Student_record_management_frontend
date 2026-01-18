@@ -19,7 +19,7 @@ const Register = () => {
   const [errors, setErrors] = useState({})
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e. target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
     // Clear error for this field
     if (errors[e.target.name]) {
       setErrors({ ... errors, [e.target.name]: '' })
@@ -33,11 +33,11 @@ const Register = () => {
       newErrors.username = 'Username must be at least 3 characters'
     }
 
-    if (!/\S+@\S+\.\S+/.test(formData. email)) {
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid'
     }
 
-    if (formData.password. length < 6) {
+    if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters'
     }
 
@@ -117,7 +117,7 @@ const Register = () => {
               label="Password"
               type="password"
               name="password"
-              value={formData. password}
+              value={formData.password}
               onChange={handleChange}
               placeholder="Create a password"
               error={errors.password}
@@ -131,7 +131,7 @@ const Register = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               placeholder="Confirm your password"
-              error={errors. confirmPassword}
+              error={errors.confirmPassword}
               required
             />
 
