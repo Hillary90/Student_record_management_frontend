@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [
     react(),
   ],
+   base: '/Student_record_management_frontend/',
    server: {
     port:  5173,
     proxy: {
