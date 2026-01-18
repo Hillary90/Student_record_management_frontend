@@ -6,7 +6,7 @@ export const login = async (credentials) => {
 }
 
 export const register = async (userData) => {
-  const response = await axios. post('/auth/register', userData)
+  const response = await axios.post('/auth/register', userData)
   return response.data
 }
 
