@@ -8,9 +8,9 @@ const instance = axios.create({
 })
 
 // Add auth token to requests
-instance.interceptors.request. use(
+instance.interceptors.request.use(
   (config) => {
-    const token = localStorage. getItem('token')
+    const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -22,16 +22,16 @@ instance.interceptors.request. use(
 )
 
 // Handle errors globally
-instance. interceptors.response.use(
+instance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('token')
-      localStorage. removeItem('user')
+      localStorage.removeItem('user')
       
       // Redirect to login with HashRouter
-      window.location. hash = '#/login'
+      window.location.hash = '#/login'
     }
     return Promise.reject(error)
   }
