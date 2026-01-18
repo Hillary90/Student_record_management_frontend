@@ -22,7 +22,7 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
     // Clear error for this field
     if (errors[e.target.name]) {
-      setErrors({ ... errors, [e.target.name]: '' })
+      setErrors({ ...errors, [e.target.name]: '' })
     }
   }
 
@@ -61,8 +61,8 @@ const Register = () => {
   }
 
   const roleOptions = [
-    { value:  'teacher', label: 'Teacher' },
-    { value:  'admin', label: 'Admin' },
+    { value: 'teacher', label: 'Teacher' },
+    { value: 'admin', label: 'Admin' },
   ]
 
   return (
