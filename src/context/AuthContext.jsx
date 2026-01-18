@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is logged in on mount
-    const token = localStorage. getItem('token')
+    const token = localStorage.getItem('token')
     const savedUser = localStorage.getItem('user')
     
     if (token && savedUser) {
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       const data = await authService.login(credentials)
-      setUser(data. user)
+      setUser(data.user)
       localStorage.setItem('token', data.access_token)
       localStorage.setItem('user', JSON.stringify(data.user))
       toast.success('Login successful!')
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const data = await authService.register(userData)
-      toast.success('Registration successful!  Please login.')
+      toast.success('Registration successful! Please login.')
       navigate('/login')
       return { success: true }
     } catch (error) {
