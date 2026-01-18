@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: import.meta.env. VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -31,7 +31,7 @@ instance.interceptors.response.use(
       localStorage.removeItem('user')
       
       // Use BASE_URL for proper routing in both dev and production
-      const basePath = import. meta.env.BASE_URL || '/'
+      const basePath = /* @vite-ignore */ import.meta.env.BASE_URL || '/'
       window.location. href = `${basePath}login`
     }
     return Promise.reject(error)
