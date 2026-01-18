@@ -34,7 +34,7 @@ const Grades = () => {
         getAllGrades(),
         getAllStudents(),
       ])
-      setGrades(gradesData. grades)
+      setGrades(gradesData.grades)
       setStudents(studentsData.students)
       setFilteredGrades(gradesData.grades)
     } catch (error) {
@@ -48,11 +48,11 @@ const Grades = () => {
     let filtered = grades
 
     if (filterStudent) {
-      filtered = filtered.filter((grade) => grade.student_id. toString() === filterStudent)
+      filtered = filtered.filter((grade) => grade.student_id.toString() === filterStudent)
     }
 
     if (filterTerm) {
-      filtered = filtered. filter((grade) => grade.term === filterTerm)
+      filtered = filtered.filter((grade) => grade.term === filterTerm)
     }
 
     setFilteredGrades(filtered)
@@ -211,7 +211,7 @@ const Grades = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredGrades. map((grade) => (
+                {filteredGrades.map((grade) => (
                   <tr key={grade.id} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="py-4 px-6 text-gray-800">
                       {getStudentName(grade.student_id)}
@@ -220,11 +220,11 @@ const Grades = () => {
                     <td className="py-4 px-6 text-gray-800">
                       {grade.score}/{grade.max_score}
                     </td>
-                    <td className="py-4 px-6 text-gray-800">{grade. percentage}%</td>
+                    <td className="py-4 px-6 text-gray-800">{grade.percentage}%</td>
                     <td className="py-4 px-6">
                       <span
                         className={`px-3 py-1 rounded-full text-sm font-medium ${getGradeColor(
-                          grade. grade_letter
+                          grade.grade_letter
                         )}`}
                       >
                         {grade.grade_letter}
