@@ -9,7 +9,7 @@ const StudentCard = ({ student, onView, onEdit, onDelete }) => {
         <div className="flex items-center space-x-3">
           <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
             <span className="text-xl font-bold text-primary-600">
-              {student.first_name. charAt(0)}{student.last_name.charAt(0)}
+              {student.first_name.charAt(0)}{student.last_name.charAt(0)}
             </span>
           </div>
           <div>
