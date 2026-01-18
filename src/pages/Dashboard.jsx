@@ -28,9 +28,9 @@ const Dashboard = () => {
         : 0
 
       setStats({
-        totalStudents: studentsData. count,
+        totalStudents: studentsData.count,
         totalGrades: gradesData.count,
-        averageScore: avgScore. toFixed(2),
+        averageScore: avgScore.toFixed(2),
       })
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error)
@@ -42,16 +42,16 @@ const Dashboard = () => {
   const statCards = [
     {
       title: 'Total Students',
-      value: stats. totalStudents,
-      icon:  Users,
+      value: stats.totalStudents,
+      icon: Users,
       color: 'bg-blue-500',
       textColor: 'text-blue-600',
       bgColor: 'bg-blue-50',
     },
     {
       title: 'Total Grades',
-      value: stats. totalGrades,
-      icon:  GraduationCap,
+      value: stats.totalGrades,
+      icon: GraduationCap,
       color: 'bg-green-500',
       textColor: 'text-green-600',
       bgColor: 'bg-green-50',
@@ -62,7 +62,7 @@ const Dashboard = () => {
       icon: TrendingUp,
       color: 'bg-purple-500',
       textColor: 'text-purple-600',
-      bgColor:  'bg-purple-50',
+      bgColor: 'bg-purple-50',
     },
     {
       title: 'Subjects',
@@ -95,7 +95,7 @@ const Dashboard = () => {
                 <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
               </div>
               <div className={`${stat.bgColor} p-3 rounded-lg`}>
-                <stat.icon className={`w-8 h-8 ${stat. textColor}`} />
+                <stat.icon className={`w-8 h-8 ${stat.textColor}`} />
               </div>
             </div>
           </div>
