@@ -107,7 +107,7 @@ const Grades = () => {
   const getGradeColor = (letter) => {
     const colors = {
       A: 'bg-green-100 text-green-800',
-      B:  'bg-blue-100 text-blue-800',
+      B: 'bg-blue-100 text-blue-800',
       C: 'bg-yellow-100 text-yellow-800',
       D: 'bg-orange-100 text-orange-800',
       F: 'bg-red-100 text-red-800',
@@ -117,8 +117,8 @@ const Grades = () => {
 
   const studentOptions = [
     { value: '', label: 'All Students' },
-    ... students.map((student) => ({
-      value: student.id. toString(),
+    ...students.map((student) => ({
+      value: student.id.toString(),
       label: student.full_name,
     })),
   ]
