@@ -6,7 +6,7 @@ export const getAllStudents = async (params = {}) => {
 }
 
 export const getStudent = async (id, includeGrades = false) => {
-  const response = await axios. get(`/students/${id}`, {
+  const response = await axios.get(`/students/${id}`, {
     params: { include_grades: includeGrades }
   })
   return response.data
