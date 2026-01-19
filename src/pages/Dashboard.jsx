@@ -86,37 +86,37 @@ const Dashboard = () => {
         <p className="text-gray-600 mt-1">Overview of your student management system</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
         {statCards.map((stat, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div key={index} className="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between">
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="text-sm text-gray-600 mb-1">{stat.title}</p>
-                <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-gray-800 truncate">{stat.value}</p>
               </div>
-              <div className={`${stat.bgColor} p-3 rounded-lg`}>
-                <stat.icon className={`w-8 h-8 ${stat.textColor}`} />
+              <div className={`${stat.bgColor} p-2 sm:p-3 rounded-lg flex-shrink-0`}>
+                <stat.icon className={`w-6 h-6 sm:w-8 sm:h-8 ${stat.textColor}`} />
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg shadow-lg p-8 text-white">
-        <h3 className="text-2xl font-bold mb-2">Welcome to Student Record Management System</h3>
-        <p className="text-primary-100 mb-4">
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg shadow-lg p-6 sm:p-8 text-white">
+        <h3 className="text-xl sm:text-2xl font-bold mb-2">Welcome to Student Record Management System</h3>
+        <p className="text-primary-100 mb-4 text-sm sm:text-base">
           Manage your students, track their academic performance, and maintain comprehensive records all in one place.
         </p>
-        <div className="flex space-x-4">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
           <Link
             to="/students"
-            className="bg-white text-primary-600 px-6 py-2 rounded-lg font-medium hover:bg-primary-50 transition-colors"
+            className="bg-white text-primary-600 px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-primary-50 transition-colors text-center"
           >
             View Students
           </Link>
           <Link
             to="/grades"
-            className="bg-primary-700 text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-800 transition-colors"
+            className="bg-primary-700 text-white px-4 sm:px-6 py-2 rounded-lg font-medium hover:bg-primary-800 transition-colors text-center"
           >
             Manage Grades
           </Link>

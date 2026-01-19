@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   margin: 0;
   padding: 0;
@@ -37,7 +36,44 @@ body {
 }
 
 /* Toast customization */
-. Toastify__toast {
+.Toastify__toast {
   border-radius: 8px;
   font-family: inherit;
+}
+
+/* Mobile-first responsive utilities */
+@layer utilities {
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  /* Better mobile tap targets */
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Responsive table wrapper */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile-friendly form inputs */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  select,
+  textarea {
+    font-size: 16px; 
+  }
 }

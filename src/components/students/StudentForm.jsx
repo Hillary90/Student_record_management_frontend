@@ -60,7 +60,7 @@ const StudentForm = ({ student, onSubmit, onCancel, loading }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Input
           label="Admission Number"
           name="admission_number"
@@ -68,7 +68,7 @@ const StudentForm = ({ student, onSubmit, onCancel, loading }) => {
           onChange={handleChange}
           placeholder="e.g., ADM001"
           required
-          disabled={!! student}
+          disabled={!!student}
         />
 
         <Input
@@ -101,7 +101,7 @@ const StudentForm = ({ student, onSubmit, onCancel, loading }) => {
         <Select
           label="Gender"
           name="gender"
-          value={formData. gender}
+          value={formData.gender}
           onChange={handleChange}
           options={genderOptions}
           required
@@ -110,7 +110,7 @@ const StudentForm = ({ student, onSubmit, onCancel, loading }) => {
         <Select
           label="Class"
           name="class_name"
-          value={formData. class_name}
+          value={formData.class_name}
           onChange={handleChange}
           options={classOptions}
           required
@@ -151,7 +151,7 @@ const StudentForm = ({ student, onSubmit, onCancel, loading }) => {
           placeholder="+254787654321"
         />
 
-        <div className="md:col-span-2">
+        <div className="sm:col-span-2">
           <Input
             label="Address"
             name="address"
@@ -162,12 +162,12 @@ const StudentForm = ({ student, onSubmit, onCancel, loading }) => {
         </div>
       </div>
 
-      <div className="flex justify-end space-x-3 mt-6">
-        <Button type="button" variant="secondary" onClick={onCancel} icon={X}>
+      <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 mt-6">
+        <Button type="button" variant="secondary" onClick={onCancel} icon={X} className="w-full sm:w-auto">
           Cancel
         </Button>
-        <Button type="submit" variant="primary" disabled={loading} icon={Save}>
-          {loading ? 'Saving...' :  student ? 'Update Student' : 'Add Student'}
+        <Button type="submit" variant="primary" disabled={loading} icon={Save} className="w-full sm:w-auto">
+          {loading ? 'Saving...' : student ? 'Update Student' : 'Add Student'}
         </Button>
       </div>
     </form>

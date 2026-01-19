@@ -135,20 +135,20 @@ const Students = () => {
   return (
     <div>
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 space-y-4 sm:space-y-0">
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">Students</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">Students</h2>
           <p className="text-gray-600 mt-1">Manage student records and information</p>
         </div>
-        <Button variant="primary" onClick={handleAddStudent} icon={Plus}>
+        <Button variant="primary" onClick={handleAddStudent} icon={Plus} className="w-full sm:w-auto">
           Add Student
         </Button>
       </div>
 
       {/* Filters */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <div className="grid grid-cols-1 md: grid-cols-3 gap-4">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-2">
             <SearchBar
               value={searchTerm}
               onChange={setSearchTerm}
@@ -180,10 +180,10 @@ const Students = () => {
           <p className="text-gray-400 mt-2">Try adjusting your filters or add a new student</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           {filteredStudents.map((student) => (
             <StudentCard
-              key={student. id}
+              key={student.id}
               student={student}
               onView={handleViewStudent}
               onEdit={handleEditStudent}

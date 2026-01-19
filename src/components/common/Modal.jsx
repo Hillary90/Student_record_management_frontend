@@ -16,10 +16,10 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
   if (!isOpen) return null
 
   const sizes = {
-    sm: 'max-w-md',
-    md: 'max-w-2xl',
-    lg: 'max-w-4xl',
-    xl: 'max-w-6xl',
+    sm: 'max-w-sm sm:max-w-md',
+    md: 'max-w-lg sm:max-w-2xl',
+    lg: 'max-w-2xl sm:max-w-4xl',
+    xl: 'max-w-4xl sm:max-w-6xl',
   }
 
   return (
@@ -31,23 +31,23 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
       ></div>
 
       {/* Modal */}
-      <div className="flex items-center justify-center min-h-screen p-4">
+      <div className="flex items-center justify-center min-h-screen p-2 sm:p-4">
         <div
-          className={`relative bg-white rounded-lg shadow-xl w-full ${sizes[size]} transform transition-all`}
+          className={`relative bg-white rounded-lg shadow-xl w-full ${sizes[size]} transform transition-all mx-2 sm:mx-0`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 truncate pr-4">{title}</h3>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover:text-gray-600 transition-colors p-1 tap-target flex-shrink-0"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
 
           {/* Body */}
-          <div className="p-6">{children}</div>
+          <div className="p-4 sm:p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">{children}</div>
         </div>
       </div>
     </div>
