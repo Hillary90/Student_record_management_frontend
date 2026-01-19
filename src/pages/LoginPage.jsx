@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import Input from '../components/common/Input'
@@ -12,6 +12,26 @@ const Login = () => {
     password: '',
   })
   const [loading, setLoading] = useState(false)
+  const [apiStatus, setApiStatus] = useState('checking')
+
+  // Test API connection on component mount
+  useEffect(() => {
+    const testAPI = async () => {
+      try {
+        const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'
+        const response = await fetch(`${baseURL}/health`)
+        if (response.ok) {
+          setApiStatus('connected')
+        } else {
+          setApiStatus('error')
+        }
+      } catch (error) {
+        console.error('API connection test failed:', error)
+        setApiStatus('error')
+      }
+    }
+    testAPI()
+  }, [])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -36,6 +56,19 @@ const Login = () => {
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Student Record Management</h1>
           <p className="text-primary-100">Sign in to your account</p>
+        </div>
+
+        {/* API Status */}
+        <div className="mb-4 text-center">
+          <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm ${
+            apiStatus === 'connected' ? 'bg-green-100 text-green-800' :
+            apiStatus === 'error' ? 'bg-red-100 text-red-800' :
+            'bg-yellow-100 text-yellow-800'
+          }`}>
+            {apiStatus === 'connected' ? '✓ API Connected' :
+             apiStatus === 'error' ? '✗ API Connection Failed' :
+             '⏳ Checking API...'}
+          </div>
         </div>
 
         {/* Login Form */}
@@ -65,7 +98,7 @@ const Login = () => {
               type="submit"
               variant="primary"
               className="w-full"
-              disabled={loading}
+              disabled={loading || apiStatus === 'error'}
               icon={LogIn}
             >
               {loading ? 'Signing in...' : 'Sign In'}

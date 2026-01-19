@@ -23,7 +23,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
+      console.log('Attempting login with:', credentials.username)
       const data = await authService.login(credentials)
+      console.log('Login successful:', data)
       setUser(data.user)
       localStorage.setItem('token', data.access_token)
       localStorage.setItem('user', JSON.stringify(data.user))
@@ -31,8 +33,9 @@ export const AuthProvider = ({ children }) => {
       navigate('/dashboard')
       return { success: true }
     } catch (error) {
-      const message = error.response?.data?.error || 'Login failed'
-      toast.error(message)
+      console.error('Login error:', error)
+      const message = error.response?.data?.error || error.message || 'Login failed'
+      toast.error(`Login failed: ${message}`)
       return { success: false, error: message }
     }
   }

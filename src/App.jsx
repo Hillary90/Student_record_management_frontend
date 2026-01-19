@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import Students from './pages/Students'
 import StudentDetail from './pages/StudentDetail'
 import Grades from './pages/Grades'
+import ApiTest from './pages/ApiTest'
 
 function App() {
   const { user } = useAuth()
@@ -17,6 +18,7 @@ function App() {
       {/* Public Routes */}
       <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
       <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <Register />} />
+      <Route path="/api-test" element={<ApiTest />} />
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>

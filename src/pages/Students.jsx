@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Plus, Filter } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 import { getAllStudents, createStudent, updateStudent, deleteStudent } from '../services/studentService'
 import StudentCard from '../components/students/StudentCard'
 import StudentForm from '../components/students/StudentForm'
@@ -13,6 +14,7 @@ import Select from '../components/common/Select'
 
 const Students = () => {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [students, setStudents] = useState([])
   const [filteredStudents, setFilteredStudents] = useState([])
   const [loading, setLoading] = useState(true)
@@ -23,8 +25,10 @@ const Students = () => {
   const [filterClass, setFilterClass] = useState('')
 
   useEffect(() => {
-    fetchStudents()
-  }, [])
+    if (user) {
+      fetchStudents()
+    }
+  }, [user])
 
   useEffect(() => {
     filterStudentsList()

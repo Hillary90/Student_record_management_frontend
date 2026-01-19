@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Plus, Edit, Trash2 } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 import { getAllGrades, createGrade, updateGrade, deleteGrade } from '../services/gradeService'
 import { getAllStudents } from '../services/studentService'
 import GradeForm from '../components/grades/GradeForm'
@@ -10,6 +11,7 @@ import Loading from '../components/common/Loading'
 import Select from '../components/common/Select'
 
 const Grades = () => {
+  const { user } = useAuth()
   const [grades, setGrades] = useState([])
   const [students, setStudents] = useState([])
   const [filteredGrades, setFilteredGrades] = useState([])
@@ -21,8 +23,10 @@ const Grades = () => {
   const [filterTerm, setFilterTerm] = useState('')
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    if (user) {
+      fetchData()
+    }
+  }, [user])
 
   useEffect(() => {
     filterGradesList()
