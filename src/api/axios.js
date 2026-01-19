@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { validateToken, forceLogout } from '../utils/auth'
+import { isAuthenticated, clearAuthData } from '../utils/auth'
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'https://student-record-management-backend-2akg.onrender.com/api',
@@ -12,13 +12,17 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token')
-    if (token) {
+    if (token && isAuthenticated()) {
       config.headers.Authorization = `Bearer ${token}`
       console.log('Adding token to request:', token.substring(0, 20) + '...')
       console.log('Request URL:', config.url)
       console.log('Request method:', config.method)
     } else {
-      console.log('No token found in localStorage')
+      console.log('No valid token found')
+      if (token) {
+        // Token exists but is invalid, clear it
+        clearAuthData()
+      }
     }
     return config
   },
@@ -32,8 +36,7 @@ instance.interceptors.response.use(
     console.error('API Error:', error.response?.status, error.response?.data)
     if (error.response?.status === 401) {
       console.log('Unauthorized - clearing token and redirecting to login')
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
+      clearAuthData()
       // Only redirect if not already on login page
       if (!window.location.hash.includes('login')) {
         window.location.hash = '#/login'
