@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Plus, Edit, Trash2 } from 'lucide-react'
-import { useAuth } from '../context/AuthContext'
 import { getAllGrades, createGrade, updateGrade, deleteGrade } from '../services/gradeService'
 import { getAllStudents } from '../services/studentService'
-import { isAuthenticated } from '../utils/auth'
 import GradeForm from '../components/grades/GradeForm'
 import Button from '../components/common/Button'
 import Modal from '../components/common/Modal'
@@ -12,7 +10,6 @@ import Loading from '../components/common/Loading'
 import Select from '../components/common/Select'
 
 const Grades = () => {
-  const { user } = useAuth()
   const [grades, setGrades] = useState([])
   const [students, setStudents] = useState([])
   const [filteredGrades, setFilteredGrades] = useState([])
@@ -24,10 +21,8 @@ const Grades = () => {
   const [filterTerm, setFilterTerm] = useState('')
 
   useEffect(() => {
-    if (user) {
-      fetchData()
-    }
-  }, [user])
+    fetchData()
+  }, [])
 
   useEffect(() => {
     filterGradesList()
@@ -35,12 +30,6 @@ const Grades = () => {
 
   const fetchData = async () => {
     try {
-      // Check authentication before making API calls
-      if (!isAuthenticated()) {
-        toast.error('Please log in to access grades')
-        return
-      }
-      
       const [gradesData, studentsData] = await Promise.all([
         getAllGrades(),
         getAllStudents(),
@@ -49,9 +38,7 @@ const Grades = () => {
       setStudents(studentsData.students)
       setFilteredGrades(gradesData.grades)
     } catch (error) {
-      console.error('Fetch data error:', error)
-      const errorMessage = error.response?.data?.error || error.message || 'Failed to fetch data'
-      toast.error(errorMessage)
+      toast.error('Failed to fetch data')
     } finally {
       setLoading(false)
     }
@@ -84,20 +71,11 @@ const Grades = () => {
   const handleDeleteGrade = async (grade) => {
     if (window.confirm('Are you sure you want to delete this grade?')) {
       try {
-        // Check authentication before making API calls
-        if (!isAuthenticated()) {
-          toast.error('Please log in to delete grades')
-          return
-        }
-        
-        console.log('Attempting to delete grade:', grade.id)
         await deleteGrade(grade.id)
         toast.success('Grade deleted successfully')
         fetchData()
       } catch (error) {
-        console.error('Delete grade error:', error)
-        const errorMessage = error.response?.data?.error || error.message || 'Failed to delete grade'
-        toast.error(errorMessage)
+        toast.error('Failed to delete grade')
       }
     }
   }
@@ -105,13 +83,6 @@ const Grades = () => {
   const handleSubmit = async (formData) => {
     setModalLoading(true)
     try {
-      // Check authentication before making API calls
-      if (!isAuthenticated()) {
-        toast.error('Please log in to manage grades')
-        return
-      }
-      
-      console.log('Submitting grade form:', formData)
       if (selectedGrade) {
         await updateGrade(selectedGrade.id, formData)
         toast.success('Grade updated successfully')
@@ -122,9 +93,7 @@ const Grades = () => {
       setModalOpen(false)
       fetchData()
     } catch (error) {
-      console.error('Grade form submission error:', error)
-      const errorMessage = error.response?.data?.error || error.message || 'Operation failed'
-      toast.error(errorMessage)
+      toast.error(error.response?.data?.error || 'Operation failed')
     } finally {
       setModalLoading(false)
     }
