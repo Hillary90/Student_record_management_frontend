@@ -16,7 +16,9 @@ instance.interceptors.request.use(
     }
     return config
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error)
+  }
 )
 
 // Handle errors globally
@@ -27,8 +29,7 @@ instance.interceptors.response.use(
       // Token expired or invalid
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      // Redirect to login page
-      window.location.hash = '#/login'
+      window.location.href = '/login'
     }
     return Promise.reject(error)
   }
