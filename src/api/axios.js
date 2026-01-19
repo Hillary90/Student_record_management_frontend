@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://student-record-management-backend-2akg.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -13,6 +13,9 @@ instance.interceptors.request.use(
     const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
+      console.log('Adding token to request:', token.substring(0, 20) + '...')
+    } else {
+      console.log('No token found in localStorage')
     }
     return config
   },
