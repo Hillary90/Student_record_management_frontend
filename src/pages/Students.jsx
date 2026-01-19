@@ -87,7 +87,16 @@ const Students = () => {
         toast.success('Student deleted successfully')
         fetchStudents()
       } catch (error) {
-        toast.error('Failed to delete student')
+        console.error('Delete error:', error)
+        if (error.response?.status === 401) {
+          toast.error('Session expired. Please login again.')
+          // Force logout
+          localStorage.removeItem('token')
+          localStorage.removeItem('user')
+          window.location.hash = '#/login'
+        } else {
+          toast.error(error.response?.data?.error || 'Failed to delete student')
+        }
       }
     }
   }
