@@ -3,6 +3,7 @@ import { Users, GraduationCap, BookOpen, TrendingUp } from 'lucide-react'
 import { getAllStudents } from '../services/studentService'
 import { getAllGrades } from '../services/gradeService'
 import Loading from '../components/common/Loading'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -85,7 +86,6 @@ const Dashboard = () => {
         <p className="text-gray-600 mt-1">Overview of your student management system</p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {statCards.map((stat, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
@@ -102,25 +102,24 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* Welcome Card */}
       <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg shadow-lg p-8 text-white">
         <h3 className="text-2xl font-bold mb-2">Welcome to Student Record Management System</h3>
         <p className="text-primary-100 mb-4">
           Manage your students, track their academic performance, and maintain comprehensive records all in one place.
         </p>
         <div className="flex space-x-4">
-          <a
-            href="/students"
+          <Link
+            to="/students"
             className="bg-white text-primary-600 px-6 py-2 rounded-lg font-medium hover:bg-primary-50 transition-colors"
           >
             View Students
-          </a>
-          <a
-            href="/grades"
+          </Link>
+          <Link
+            to="/grades"
             className="bg-primary-700 text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-800 transition-colors"
           >
             Manage Grades
-          </a>
+          </Link>
         </div>
       </div>
     </div>
