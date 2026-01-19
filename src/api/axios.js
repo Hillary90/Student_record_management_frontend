@@ -10,21 +10,13 @@ const instance = axios.create({
 
 // Add auth token to requests
 instance.interceptors.request.use(
-  async (config) => {
+  (config) => {
     const token = localStorage.getItem('token')
     if (token) {
-      // Validate token before using it
-      const isValid = await validateToken()
-      if (isValid) {
-        config.headers.Authorization = `Bearer ${token}`
-        console.log('Adding token to request:', token.substring(0, 20) + '...')
-        console.log('Request URL:', config.url)
-        console.log('Request method:', config.method)
-      } else {
-        console.log('Token invalid, removing from request')
-        forceLogout()
-        return Promise.reject(new Error('Invalid token'))
-      }
+      config.headers.Authorization = `Bearer ${token}`
+      console.log('Adding token to request:', token.substring(0, 20) + '...')
+      console.log('Request URL:', config.url)
+      console.log('Request method:', config.method)
     } else {
       console.log('No token found in localStorage')
     }
@@ -42,7 +34,10 @@ instance.interceptors.response.use(
       console.log('Unauthorized - clearing token and redirecting to login')
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      window.location.hash = '#/login'
+      // Only redirect if not already on login page
+      if (!window.location.hash.includes('login')) {
+        window.location.hash = '#/login'
+      }
     }
     return Promise.reject(error)
   }

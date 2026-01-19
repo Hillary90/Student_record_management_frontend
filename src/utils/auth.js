@@ -11,8 +11,9 @@ export const validateToken = async () => {
     const payload = JSON.parse(atob(token.split('.')[1]))
     const currentTime = Date.now() / 1000
     
-    if (payload.exp < currentTime) {
-      console.log('Token expired, clearing localStorage')
+    // Add 5 minute buffer to prevent edge cases
+    if (payload.exp < (currentTime + 300)) {
+      console.log('Token expired or expiring soon, clearing localStorage')
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       return false
@@ -25,6 +26,13 @@ export const validateToken = async () => {
     localStorage.removeItem('user')
     return false
   }
+}
+
+// Check if user is authenticated
+export const isAuthenticated = () => {
+  const token = localStorage.getItem('token')
+  const user = localStorage.getItem('user')
+  return !!(token && user && validateToken())
 }
 
 // Clear all auth data
