@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as authService from '../services/authService'
+import { validateToken, clearAuthData } from '../utils/auth'
 
 const AuthContext = createContext(null)
 
@@ -12,13 +13,23 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is logged in on mount
-    const token = localStorage.getItem('token')
-    const savedUser = localStorage.getItem('user')
-    
-    if (token && savedUser) {
-      setUser(JSON.parse(savedUser))
+    const initAuth = async () => {
+      const token = localStorage.getItem('token')
+      const savedUser = localStorage.getItem('user')
+      
+      if (token && savedUser) {
+        const isValid = await validateToken()
+        if (isValid) {
+          setUser(JSON.parse(savedUser))
+        } else {
+          console.log('Invalid token detected, clearing auth data')
+          clearAuthData()
+        }
+      }
+      setLoading(false)
     }
-    setLoading(false)
+    
+    initAuth()
   }, [])
 
   const login = async (credentials) => {
